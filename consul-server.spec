@@ -1,0 +1,63 @@
+%define        __spec_install_post %{nil}
+%define          debug_package %{nil}
+%define        __os_install_post %{_dbpath}/brp-compress
+
+Summary: Consul
+Name: consul-server
+Version: 0.4.1
+Release: 3
+License: GPL+
+Group: Applications/Internet
+SOURCE0 : %{name}-%{version}.tar.gz
+URL: http://consul.io/
+
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
+
+Requires(pre): /usr/sbin/useradd, /usr/bin/getent
+Requires(postun): /usr/sbin/userdel, /usr/bin/systemctl
+
+%pre
+/usr/bin/getent group consul || /usr/sbin/groupadd -r consul
+/usr/bin/getent passwd consul || /usr/sbin/useradd -r -d /var/lib/consul -s /sbin/nologin -g consul consul
+
+%post
+/usr/bin/systemctl daemon-reload
+/usr/bin/systemctl enable consul
+/usr/bin/systemctl start consul
+/usr/bin/systemctl status -l consul
+
+%postun
+/usr/bin/systemctl stop consul
+/usr/bin/systemctl disable consul
+/usr/sbin/userdel consul
+
+%description
+%{summary}
+
+%prep
+%setup -q
+
+%build
+# Empty section.
+
+%install
+rm -rf %{buildroot}
+mkdir -p  %{buildroot}
+
+# in builddir
+cp -a * %{buildroot}
+
+
+%clean
+rm -rf %{buildroot}
+
+
+%files
+%defattr(-,root,root,-)
+%config(noreplace) %{_sysconfdir}/consul.d/server.json
+%{_bindir}/consul
+/usr/lib/systemd/system/consul.service
+
+%changelog
+* Thu Feb 5 2015  Luo Tao <luotao@zhubajie.com> 0.4.1-1
+- First Build
