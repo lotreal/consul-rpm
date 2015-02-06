@@ -13,12 +13,14 @@ URL: http://consul.io/
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 
-Requires(pre): /usr/sbin/useradd, /usr/bin/getent
+Requires(pre): /usr/sbin/useradd, /usr/bin/getent, /usr/bin/mkdir, /usr/bin/chown
 Requires(postun): /usr/sbin/userdel, /usr/bin/systemctl
 
 %pre
+/usr/bin/mkdir /var/lib/consul
 /usr/bin/getent group consul || /usr/sbin/groupadd -r consul
 /usr/bin/getent passwd consul || /usr/sbin/useradd -r -d /var/lib/consul -s /sbin/nologin -g consul consul
+/usr/bin/chown -R consul:consul /var/lib/consul
 
 %post
 /usr/bin/systemctl daemon-reload
@@ -29,7 +31,7 @@ Requires(postun): /usr/sbin/userdel, /usr/bin/systemctl
 %postun
 /usr/bin/systemctl stop consul
 /usr/bin/systemctl disable consul
-/usr/sbin/userdel consul
+# /usr/sbin/userdel consul
 
 %description
 %{summary}
