@@ -1,0 +1,3 @@
+getent passwd consul
+ps axjf | grep consul
+systemctl status -l consul
