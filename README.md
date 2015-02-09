@@ -5,7 +5,6 @@ mkdir -p /opt/consul && cd /opt/consul && unzip /tmp/webui.zip && mv dist ui
 ls /opt/consul/ui
 index.html  static/
 
-
 # rpmbuild
 yum install rpm-build make gcc
 yum install rpmdevtools rpmlint
@@ -26,3 +25,9 @@ rpm2cpio consul-1.0-1.x86_64.rpm|cpio -idmv
 
 # links
 http://www.consul.io/docs/agent/options.html
+
+# Verify
+
+getent passwd consul
+ps axjf | grep consul
+systemctl status -l consul

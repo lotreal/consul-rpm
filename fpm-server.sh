@@ -11,7 +11,7 @@ mkdir -p $ROOT/etc/consul.d
 mkdir -p $ROOT/usr/lib/systemd/system
 
 install -m 755 src/consul-${VERSION}/consul $ROOT/usr/bin
-install -m 644 etc/consul.d/server.json $ROOT/etc/consul.d
+install -m 644 etc/consul.d/server-8600.json $ROOT/etc/consul.d/server.json
 install -m 644 consul.service $ROOT/usr/lib/systemd/system
 
 cd build
