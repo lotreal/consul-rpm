@@ -24,6 +24,5 @@ cp ${NAME}.spec ~/rpmbuild/SPECS/
 
 rpmbuild -ba ~/rpmbuild/SPECS/${NAME}.spec
 
-yum remove -y ${NAME}
-yum localinstall ~/rpmbuild/RPMS/x86_64/${PKG}-3.x86_64.rpm
-rpm -ql ${NAME}
+cp ~/rpmbuild/RPMS/x86_64/${PKG}-3.x86_64.rpm /www/repo/7/x86_64/
+createrepo --update /www/repo/7/x86_64

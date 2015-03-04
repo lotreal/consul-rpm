@@ -3,7 +3,6 @@
   "server": true,
   "data_dir": "/var/lib/consul",
   "ui_dir": "/opt/consul/ui",
-  "recursor": "113.31.20.44",
   "datacenter": "nine",
   "domain": "zbj",
   "log_level": "WARN",

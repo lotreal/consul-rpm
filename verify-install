@@ -1,3 +1,9 @@
+NAME=consul-server
+yum remove -y ${NAME}
+yum install ${NAME}
+# yum localinstall ~/rpmbuild/RPMS/x86_64/${PKG}-3.x86_64.rpm
+rpm -ql ${NAME}
+
 getent passwd consul
 ps axjf | grep consul
 systemctl status -l consul

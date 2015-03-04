@@ -1,0 +1,29 @@
+#!/bin/bash
+scan() {
+    local port=$1
+    local host=${2-127.0.0.1}
+    num=${port%%/*}
+    type=${port##*/}
+
+    if [[ $type == $num ]]; then
+        type=tcp
+    fi
+
+    if [[ $type == tcp ]]; then
+        flags=-sT
+    else
+        flags=-sU
+    fi
+
+    if nmap $flags -p $num $host | grep -q 'open'
+    then
+        echo "Port ($num/$type) alive and reachable"
+        return 0
+    else
+        echo "Port ($num/$type) not live or unreachable"
+        return 2
+    fi
+}
+
+scan $1 $2
+exit $?
