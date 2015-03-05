@@ -1,11 +1,11 @@
 # 安装 rpm build 环境
-/luo/consul-rpm/prepare-rpmbuild.sh
+./prepare-rpmbuild.sh
 
 # 编译 consul rpm 包，复制到 /www/repo/7/x86_64 目录，然后更新 repo
-/luo/consul-rpm/fpm-server.sh
+./fpm-server.sh
 
 # 安装 consul-server，然后验证 consul 是否被成功安装
-/luo/consul-rpm/verify-install
+./verify-install
 
 # UI
 
