@@ -2,7 +2,7 @@
 ./prepare-rpmbuild.sh
 
 # 编译 consul rpm 包，复制到 /www/repo/7/x86_64 目录，然后更新 repo
-./fpm-server.sh
+./build-server OR ./build-client
 
 # 安装 consul-server，然后验证 consul 是否被成功安装
 ./verify-install
