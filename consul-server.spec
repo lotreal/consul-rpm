@@ -2,7 +2,7 @@
 %define          debug_package %{nil}
 %define        __os_install_post %{_dbpath}/brp-compress
 
-Summary: Consul
+Summary: Consul server
 Name: consul-server
 Version: 0.4.1
 Release: 4

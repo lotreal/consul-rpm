@@ -2,9 +2,9 @@
 %define          debug_package %{nil}
 %define        __os_install_post %{_dbpath}/brp-compress
 
-Summary: Consul client
-Name: consul-client
-Version: 0.4.1
+Summary: Consul
+Name: consul
+Version: 0.5.0
 Release: 1
 License: GPL+
 Group: Applications/Internet
@@ -13,6 +13,7 @@ URL: http://consul.io/
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 
+Requires: nmap
 Requires(pre): /usr/sbin/useradd, /usr/bin/getent, /usr/bin/mkdir, /usr/bin/chown
 Requires(postun): /usr/sbin/userdel, /usr/bin/systemctl
 
@@ -56,11 +57,13 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-%config(noreplace) %{_sysconfdir}/consul.d/client.json
-%config(noreplace) %{_sysconfdir}/consul.d/service.json.tpl
+%config(noreplace) %{_sysconfdir}/consul.d/consul.json
 %{_bindir}/consul
 /usr/lib/systemd/system/consul.service
 
 %changelog
+* Thu Mar 5 2015  Luo Tao <luotao@zhubajie.com> 0.5.0-1
+- Use ansible config consul <gito:marvin.git/setup/consul.yml>
+
 * Thu Feb 5 2015  Luo Tao <luotao@zhubajie.com> 0.4.1-1
 - First Build

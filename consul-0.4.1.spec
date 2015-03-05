@@ -3,9 +3,9 @@
 %define        __os_install_post %{_dbpath}/brp-compress
 
 Summary: Consul
-Name: consul-server
+Name: consul
 Version: 0.4.1
-Release: 3
+Release: 1
 License: GPL+
 Group: Applications/Internet
 SOURCE0 : %{name}-%{version}.tar.gz
@@ -57,7 +57,7 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-%config(noreplace) %{_sysconfdir}/consul.d/server.json
+%config(noreplace) %{_sysconfdir}/consul.d/consul.json
 %{_bindir}/consul
 /usr/lib/systemd/system/consul.service
 

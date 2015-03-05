@@ -3,16 +3,8 @@
   "server": true,
   "data_dir": "/var/lib/consul",
   "ui_dir": "/opt/consul/ui",
-  "addresses": {
-    "http": "0.0.0.0",
-    "dns": "0.0.0.0"
-  },
-  "ports": {
-    "dns": 53
-  },
-  "recursor": "8.8.8.8",
   "datacenter": "nine",
   "domain": "zbj",
   "log_level": "WARN",
-  "start_join": ["192.168.1.42", "192.168.1.84", "192.168.1.86"]
+  "start_join": ["192.168.1.84", "192.168.1.86", "192.168.1.42", "192.168.1.41", "192.168.1.40"]
 }
