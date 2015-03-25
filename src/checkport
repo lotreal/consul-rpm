@@ -1,4 +1,6 @@
 #!/bin/bash
+: ${1?"Usage: checkport PORT HOST. Sample: checkport 80; checkport 53/udp"}
+
 scan() {
     local port=$1
     local host=${2-127.0.0.1}

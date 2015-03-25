@@ -1,9 +1,0 @@
-CONSUL_SERVER="zm1 zm2 ca cb"
-
-if [ "$1" == "-L" ]; then
-    # Start the appropriate services on master:
-    for HOST in ${CONSUL_SERVER}; do
-        echo $HOST
-        ssh $HOST consul info | grep leader
-    done
-fi

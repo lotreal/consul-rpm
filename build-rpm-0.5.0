@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 NAME=consul
 REV=1
 VERSION=0.5.0
@@ -7,13 +9,16 @@ ROOT=build/$PKG
 [ -d $ROOT ] && rm -r $ROOT
 
 mkdir -p $ROOT
-mkdir -p $ROOT/usr/bin
+mkdir -p $ROOT/usr/local/sbin
 mkdir -p $ROOT/etc/consul.d
+mkdir -p $ROOT/etc/consul.d.sample
 mkdir -p $ROOT/usr/lib/systemd/system
 
-install -m 755 src/consul-${VERSION}/consul $ROOT/usr/bin
-install -m 644 etc/consul.d/server.json $ROOT/etc/consul.d/consul.json
-install -m 644 consul.service $ROOT/usr/lib/systemd/system
+install -m 755 src/consul-${VERSION}/consul $ROOT/usr/local/sbin
+install -m 755 src/checkport $ROOT/usr/local/sbin
+install -m 644 etc/consul.d/*.json $ROOT/etc/consul.d.sample/
+# install -m 644 etc/consul.d/server.json $ROOT/etc/consul.d/consul.json
+install -m 644 src/consul.service $ROOT/usr/lib/systemd/system
 
 cd build
 tar -zcvf ${PKG}.tar.gz ${PKG}
@@ -21,10 +26,13 @@ tar -zcvf ${PKG}.tar.gz ${PKG}
 cd ..
 
 cp build/${PKG}.tar.gz ~/rpmbuild/SOURCES/
-cp ${NAME}.spec ~/rpmbuild/SPECS/
+cp ${PKG}.spec ~/rpmbuild/SPECS/
 
-rpmbuild -ba ~/rpmbuild/SPECS/${NAME}.spec
+rpmbuild -ba ~/rpmbuild/SPECS/${PKG}.spec
 
-
-cp ~/rpmbuild/RPMS/x86_64/${PKG}-${REV}.x86_64.rpm /www/repo/7/x86_64/
-createrepo --update /www/repo/7/x86_64
+yum erase -y consul
+yum localinstall -y ~/rpmbuild/RPMS/x86_64/consul-0.5.0-1.x86_64.rpm
+rpm -ql consul
+ls /etc/consul.d.sample
+# cp ~/rpmbuild/RPMS/x86_64/${PKG}-${REV}.x86_64.rpm /www/repo/7/x86_64/
+# createrepo --update /www/repo/7/x86_64

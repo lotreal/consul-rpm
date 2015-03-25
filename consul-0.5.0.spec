@@ -25,9 +25,9 @@ Requires(postun): /usr/sbin/userdel, /usr/bin/systemctl
 
 %post
 /usr/bin/systemctl daemon-reload
-/usr/bin/systemctl enable consul
-/usr/bin/systemctl start consul
-/usr/bin/systemctl status -l consul
+# /usr/bin/systemctl enable consul
+# /usr/bin/systemctl start consul
+# /usr/bin/systemctl status -l consul
 
 %postun
 /usr/bin/systemctl stop consul
@@ -57,8 +57,10 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-%config(noreplace) %{_sysconfdir}/consul.d/consul.json
-%{_bindir}/consul
+%config(noreplace) %{_sysconfdir}/consul.d/
+%{_sysconfdir}/consul.d.sample/
+/usr/local/sbin/consul
+/usr/local/sbin/checkport
 /usr/lib/systemd/system/consul.service
 
 %changelog
