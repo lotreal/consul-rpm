@@ -11,13 +11,11 @@ ROOT=build/$PKG
 mkdir -p $ROOT
 mkdir -p $ROOT/usr/local/sbin
 mkdir -p $ROOT/etc/consul.d
-mkdir -p $ROOT/etc/consul.d.sample
 mkdir -p $ROOT/usr/lib/systemd/system
 
 install -m 755 src/consul-${VERSION}/consul $ROOT/usr/local/sbin
 install -m 755 src/checkport $ROOT/usr/local/sbin
-install -m 644 etc/consul.d/*.json $ROOT/etc/consul.d.sample/
-# install -m 644 etc/consul.d/server.json $ROOT/etc/consul.d/consul.json
+install -m 644 src/consul.d/* $ROOT/etc/consul.d/
 install -m 644 src/consul.service $ROOT/usr/lib/systemd/system
 
 cd build
@@ -33,6 +31,6 @@ rpmbuild -ba ~/rpmbuild/SPECS/${PKG}.spec
 yum erase -y consul
 yum localinstall -y ~/rpmbuild/RPMS/x86_64/consul-0.5.0-1.x86_64.rpm
 rpm -ql consul
-ls /etc/consul.d.sample
+ls /etc/consul.d
 # cp ~/rpmbuild/RPMS/x86_64/${PKG}-${REV}.x86_64.rpm /www/repo/7/x86_64/
 # createrepo --update /www/repo/7/x86_64

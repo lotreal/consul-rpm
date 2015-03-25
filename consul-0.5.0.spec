@@ -58,7 +58,6 @@ rm -rf %{buildroot}
 %files
 %defattr(-,root,root,-)
 %config(noreplace) %{_sysconfdir}/consul.d/
-%{_sysconfdir}/consul.d.sample/
 /usr/local/sbin/consul
 /usr/local/sbin/checkport
 /usr/lib/systemd/system/consul.service
