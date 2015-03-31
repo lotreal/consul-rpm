@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
 NAME=consul
-REV=1
+REV=2
 VERSION=0.5.0
 PKG=${NAME}-${VERSION}
+RPM=${PKG}-${REV}.x86_64.rpm
 ROOT=build/$PKG
 
 [ -d $ROOT ] && rm -r $ROOT
@@ -28,9 +29,13 @@ cp ${PKG}.spec ~/rpmbuild/SPECS/
 
 rpmbuild -ba ~/rpmbuild/SPECS/${PKG}.spec
 
-yum erase -y consul
-yum localinstall -y ~/rpmbuild/RPMS/x86_64/consul-0.5.0-1.x86_64.rpm
-rpm -ql consul
-ls /etc/consul.d
+# yum erase -y consul
+# yum localinstall -y ~/rpmbuild/RPMS/x86_64/${RPM}
+# rpm -ql consul
+# ls /etc/consul.d
+
+scp ~/rpmbuild/RPMS/x86_64/${RPM} noxus:/data/www/repo/7/x86_64/
+ssh noxus /luo/dockerapps/repo/run
+
 # cp ~/rpmbuild/RPMS/x86_64/${PKG}-${REV}.x86_64.rpm /www/repo/7/x86_64/
 # createrepo --update /www/repo/7/x86_64
