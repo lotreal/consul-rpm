@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+NAME=consul
+REV=2
+VERSION=0.5.2
+PKG=${NAME}-${VERSION}
+RPM=${PKG}-${REV}.x86_64.rpm
+ROOT=build/$PKG
+
+[ -d $ROOT ] && rm -r $ROOT
+
+mkdir -p $ROOT
+mkdir -p $ROOT/usr/local/sbin
+mkdir -p $ROOT/etc/consul.d
+mkdir -p $ROOT/usr/lib/systemd/system
+
+install -m 755 src/consul-${VERSION}/consul $ROOT/usr/local/sbin
+install -m 755 src/checkport $ROOT/usr/local/sbin
+install -m 644 src/consul.d/* $ROOT/etc/consul.d/
+install -m 644 src/consul.service $ROOT/usr/lib/systemd/system
+
+cd build
+tar -zcvf ${PKG}.tar.gz ${PKG}
+
+cd ..
+
+cp build/${PKG}.tar.gz ~/rpmbuild/SOURCES/
+cp ${PKG}.spec ~/rpmbuild/SPECS/
+
+rpmbuild -ba ~/rpmbuild/SPECS/${PKG}.spec
+
+# yum erase -y consul
+# yum localinstall -y ~/rpmbuild/RPMS/x86_64/${RPM}
+# rpm -ql consul
+# ls /etc/consul.d
+
+scp ~/rpmbuild/RPMS/x86_64/${RPM} noxus:/data/www/repo/7/x86_64/
+ssh noxus /luo/dockerapps/repo/run
+
+# cp ~/rpmbuild/RPMS/x86_64/${PKG}-${REV}.x86_64.rpm /www/repo/7/x86_64/
+# createrepo --update /www/repo/7/x86_64
