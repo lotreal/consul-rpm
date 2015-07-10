@@ -5,7 +5,7 @@
 Summary: Consul
 Name: consul
 Version: 0.5.2
-Release: 2
+Release: 1
 License: GPL+
 Group: Applications/Internet
 SOURCE0 : %{name}-%{version}.tar.gz
