@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+NAME=consul
+REV=1
+VERSION=0.6.0
+PKG=${NAME}-${VERSION}
+RPM=${PKG}-${REV}.x86_64.rpm
+ROOT=build/$PKG
+
+REPO_DIR=/luo/www/repo/7/x86_64/
+
+[ -d $ROOT ] && rm -r $ROOT
+
+mkdir -p $ROOT
+mkdir -p $ROOT/usr/local/sbin
+mkdir -p $ROOT/etc/consul.d
+mkdir -p $ROOT/usr/lib/systemd/system
+
+install -m 755 src/consul-${VERSION}/consul $ROOT/usr/local/sbin
+install -m 755 src/checkport $ROOT/usr/local/sbin
+install -m 644 src/consul.d/* $ROOT/etc/consul.d/
+install -m 644 src/consul.service $ROOT/usr/lib/systemd/system
+
+cd build
+tar -zcvf ${PKG}.tar.gz ${PKG}
+
+cd ..
+
+cp build/${PKG}.tar.gz ~/rpmbuild/SOURCES/
+cp ${PKG}.spec ~/rpmbuild/SPECS/
+
+rpmbuild -ba ~/rpmbuild/SPECS/${PKG}.spec
+
+ssh repo.web.dm mkdir -p ${REPO_DIR}
+scp ~/rpmbuild/RPMS/x86_64/${RPM} repo.web.dm:${REPO_DIR}
+ssh repo.web.dm createrepo --update ${REPO_DIR}
