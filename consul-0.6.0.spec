@@ -4,7 +4,7 @@
 
 Summary: Consul
 Name: consul
-Version: 0.5.2
+Version: 0.6.0
 Release: 1
 License: GPL+
 Group: Applications/Internet
@@ -63,8 +63,5 @@ rm -rf %{buildroot}
 /usr/lib/systemd/system/consul.service
 
 %changelog
-* Thu Mar 5 2015  Luo Tao <luotao@zhubajie.com> 0.5.2-1
-- Use ansible config consul <gito:marvin.git/setup/consul.yml>
-
-* Thu Feb 5 2015  Luo Tao <luotao@zhubajie.com> 0.4.1-1
+* Fri Dec 18 2015 Luo Tao <luotao@gmail.com> 0.6.0-1
 - First Build
