@@ -4,7 +4,7 @@
 
 Summary: Consul
 Name: consul
-Version: 0.4.1
+Version: 0.6.4
 Release: 1
 License: GPL+
 Group: Applications/Internet
@@ -25,9 +25,9 @@ Requires(postun): /usr/sbin/userdel, /usr/bin/systemctl
 
 %post
 /usr/bin/systemctl daemon-reload
-/usr/bin/systemctl enable consul
-/usr/bin/systemctl start consul
-/usr/bin/systemctl status -l consul
+# /usr/bin/systemctl enable consul
+# /usr/bin/systemctl start consul
+# /usr/bin/systemctl status -l consul
 
 %postun
 /usr/bin/systemctl stop consul
@@ -57,10 +57,14 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-%config(noreplace) %{_sysconfdir}/consul.d/consul.json
-%{_bindir}/consul
+%config(noreplace) %{_sysconfdir}/consul.d/
+/usr/local/sbin/consul
+/usr/local/sbin/checkport
 /usr/lib/systemd/system/consul.service
 
 %changelog
-* Thu Feb 5 2015  Luo Tao <luotao@zhubajie.com> 0.4.1-1
+* Wed Jul 20 2016 Luo Tao <luotao@gmail.com> 0.6.4-1
+- Upgrade consul to 0.6.4
+
+* Fri Dec 18 2015 Luo Tao <luotao@gmail.com> 0.6.0-1
 - First Build
