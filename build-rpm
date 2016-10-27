@@ -2,7 +2,7 @@
 
 NAME=consul
 REV=1
-VERSION=0.6.4
+VERSION=0.7.0
 PKG=${NAME}-${VERSION}
 RPM=${PKG}-${REV}.x86_64.rpm
 ROOT=build/$PKG
@@ -32,6 +32,6 @@ cp ${NAME}.spec ~/rpmbuild/SPECS/${PKG}.spec
 
 rpmbuild -ba ~/rpmbuild/SPECS/${PKG}.spec
 
-ssh repo.web.dm mkdir -p ${REPO_DIR}
-scp ~/rpmbuild/RPMS/x86_64/${RPM} repo.web.dm:${REPO_DIR}
-ssh repo.web.dm createrepo --update ${REPO_DIR}
+# ssh repo.web.dm mkdir -p ${REPO_DIR}
+# scp ~/rpmbuild/RPMS/x86_64/${RPM} repo.web.dm:${REPO_DIR}
+# ssh repo.web.dm createrepo --update ${REPO_DIR}

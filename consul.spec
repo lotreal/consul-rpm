@@ -4,7 +4,7 @@
 
 Summary: Consul
 Name: consul
-Version: 0.6.4
+Version: 0.7.0
 Release: 1
 License: GPL+
 Group: Applications/Internet
@@ -63,6 +63,9 @@ rm -rf %{buildroot}
 /usr/lib/systemd/system/consul.service
 
 %changelog
+* Thu Oct 16 2016 Luo Tao <luotao@gmail.com> 0.7.0-1
+- Upgrade consul to 0.7.0
+
 * Wed Jul 20 2016 Luo Tao <luotao@gmail.com> 0.6.4-1
 - Upgrade consul to 0.6.4
 
