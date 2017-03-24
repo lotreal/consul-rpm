@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+NAME=consul
+REV=1
+VERSION=0.7.5
+PKG=${NAME}-${VERSION}
+RPM=${PKG}-${REV}.x86_64.rpm

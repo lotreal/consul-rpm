@@ -1,0 +1,12 @@
+version: '2'
+services:
+  build:
+    build: ./
+    volumes:
+      - ./:/data
+      - ./build/rpms:/root/rpmbuild/RPMS
+    working_dir: /data
+    command: ./build-rpm
+    # entrypoint: /bin/bash
+    # stdin_open: true
+    # tty: true

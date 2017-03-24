@@ -3,8 +3,8 @@
 %define        __os_install_post %{_dbpath}/brp-compress
 
 Summary: Consul
-Name: consul
-Version: 0.7.0
+Name: zbj-consul
+Version: 0.7.5
 Release: 1
 License: GPL+
 Group: Applications/Internet
@@ -63,6 +63,12 @@ rm -rf %{buildroot}
 /usr/lib/systemd/system/consul.service
 
 %changelog
+* Mon Mar 24 2017 Luo Tao <luotao@gmail.com> 0.7.5-1
+- Upgrade consul to 0.7.5
+
+* Mon Jan 23 2017 Luo Tao <luotao@gmail.com> 0.7.2-1
+- Upgrade consul to 0.7.2
+
 * Thu Oct 16 2016 Luo Tao <luotao@gmail.com> 0.7.0-1
 - Upgrade consul to 0.7.0
 
